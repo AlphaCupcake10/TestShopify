@@ -1,0 +1,80 @@
+{% comment %} // If it's a big component create a new css file with the same name scheme in the assets folder {% endcomment %}
+{{ 'component-steps.css' | asset_url | stylesheet_tag }}
+
+{% comment %} // If it's a big component create a new js with the same name scheme in the assets folder {% endcomment %}
+<script src="{{ 'component-steps.js' | asset_url }}" defer></script>
+
+
+<main id="component-steps">
+    <h1>Getting started</h1>
+    <button>Add to Cart</button>
+    <div class="content">
+        <div class="steps">
+            {% for block in section.blocks %}
+                {% case block.type %}
+                    {% when 'custom-text' %}
+                    <div class="step">
+                        <h2>{{block.settings.step}}</h2>
+                        <div class="clipper">
+                            <p>{{block.settings.content}}</p>
+                        </div>
+                        <div class="bar">
+                            <div> </div>
+                        </div>
+                    </div>
+                {% endcase %}
+            {% endfor %}            
+        </div>
+        <div class="img">
+            {% for block in section.blocks %}
+                {% case block.type %}
+                    {% when 'custom-text' %}
+                        {{ block.settings.image | img_url: '2048x' | img_tag }}
+                {% endcase %}
+            {% endfor %}   
+        </div>
+    </div>
+</main>
+
+
+
+
+{% schema %}
+  { // Remember to add unique section name in both name fields. 
+    "name": "Component Steps",
+    "tag": "section",
+    "presets": [
+      {
+        "name": "Component Steps",
+        "blocks": []
+      }
+    ],
+    "blocks": [
+    {
+        "name": "Step",
+        "type": "custom-text",
+        "settings": [
+            {
+                "type": "text",
+                "label": "Step-Heading",
+                "id": "step",
+                "default": "Step 1: Unpack"
+            },
+            {
+                "type": "text",
+                "label": "Step-Content",
+                "id": "content",
+                "default": "Gorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. "
+            },
+            {
+                "type": "image_picker",
+                "id": "image",
+                "label": "Image"    
+            }
+        ]
+    }
+    ],
+    "settings": [
+    ]
+  }
+{% endschema %}

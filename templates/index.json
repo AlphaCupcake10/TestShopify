@@ -1,0 +1,128 @@
+{
+  "sections": {
+    "image_banner": {
+      "type": "image-banner",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Browse our latest products",
+            "heading_size": "h2"
+          }
+        },
+        "button": {
+          "type": "buttons",
+          "settings": {
+            "button_label_1": "Shop all",
+            "button_link_1": "shopify:\/\/collections\/all",
+            "button_style_secondary_1": true,
+            "button_label_2": "",
+            "button_link_2": "",
+            "button_style_secondary_2": false
+          }
+        }
+      },
+      "block_order": [
+        "heading",
+        "button"
+      ],
+      "custom_css": [
+        "h2{padding-top:8rem;}"
+      ],
+      "settings": {
+        "image": "shopify:\/\/shop_images\/Wallpaper.png",
+        "image_overlay_opacity": 40,
+        "image_height": "adapt",
+        "desktop_content_position": "middle-center",
+        "show_text_box": false,
+        "desktop_content_alignment": "center",
+        "color_scheme": "inverse",
+        "image_behavior": "none",
+        "mobile_content_alignment": "center",
+        "stack_images_on_mobile": false,
+        "show_text_below": false
+      }
+    },
+    "4d8ba87f-64d5-4f81-9340-24c38af54a90": {
+      "type": "component-steps",
+      "blocks": {
+        "e4c9437c-0a4b-46bc-987f-5b3d6acc323a": {
+          "type": "custom-text",
+          "settings": {
+            "step": "Step 1: Unpack",
+            "content": "Gorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.",
+            "image": "shopify:\/\/shop_images\/Wallpaper.png"
+          }
+        },
+        "52e99190-d546-4935-9686-66fcb58d909c": {
+          "type": "custom-text",
+          "settings": {
+            "step": "Step 2: Unpack",
+            "content": "Gorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.",
+            "image": "shopify:\/\/shop_images\/Water.png"
+          }
+        },
+        "51887934-3344-46fa-aa87-6b1a29cbb115": {
+          "type": "custom-text",
+          "settings": {
+            "step": "Step 3: Unpack",
+            "content": "Gorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.",
+            "image": "shopify:\/\/shop_images\/wallpaper.jpg"
+          }
+        }
+      },
+      "block_order": [
+        "e4c9437c-0a4b-46bc-987f-5b3d6acc323a",
+        "52e99190-d546-4935-9686-66fcb58d909c",
+        "51887934-3344-46fa-aa87-6b1a29cbb115"
+      ],
+      "settings": {
+      }
+    },
+    "3be2b4df-7ef4-4080-a488-4bbf8893335e": {
+      "type": "component-product-display",
+      "blocks": {
+        "febe7e5b-9e21-4ed8-8100-420a12493b4a": {
+          "type": "custom-text",
+          "settings": {
+            "x": 46,
+            "y": 41,
+            "content": "Lorem Ipsum",
+            "right": false
+          }
+        },
+        "0a151a3c-55c7-46d8-ad23-a11d6e43f58c": {
+          "type": "custom-text",
+          "settings": {
+            "x": 58,
+            "y": 78,
+            "content": "Sir amet",
+            "right": false
+          }
+        },
+        "a8b45192-c8c6-4b0a-8d15-ae5646092b7d": {
+          "type": "custom-text",
+          "settings": {
+            "x": 25,
+            "y": 22,
+            "content": "Detachable window",
+            "right": false
+          }
+        }
+      },
+      "block_order": [
+        "febe7e5b-9e21-4ed8-8100-420a12493b4a",
+        "0a151a3c-55c7-46d8-ad23-a11d6e43f58c",
+        "a8b45192-c8c6-4b0a-8d15-ae5646092b7d"
+      ],
+      "settings": {
+        "image": "shopify:\/\/shop_images\/cat.webp"
+      }
+    }
+  },
+  "order": [
+    "image_banner",
+    "4d8ba87f-64d5-4f81-9340-24c38af54a90",
+    "3be2b4df-7ef4-4080-a488-4bbf8893335e"
+  ]
+}

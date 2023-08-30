@@ -1,0 +1,160 @@
+#component-steps
+{
+    max-width: var(--page-width);
+    margin: 0 auto;
+    padding: 4rem;
+    --steps-gap:2.5rem;
+}
+
+#component-steps h1
+{
+    font-size: 5rem;
+    font-weight: 500;
+    line-height: 72px; /* 112.5% */
+    letter-spacing: -1px;
+}
+#component-steps h2
+{
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 36px; /* 112.5% */
+    letter-spacing: -1px;
+}
+#component-steps p
+{
+    opacity: .6;
+    line-height: 150%;
+}
+#component-steps .content
+{
+    display: flex;
+    flex-wrap: wrap-reverse;
+    justify-content: space-between;
+    gap: 4rem;
+}
+#component-steps .steps
+{
+    width: 48rem;
+}
+#component-steps .img
+{
+    width: 48rem;
+    min-height: 24rem;
+    position: relative;
+    overflow: hidden;
+}
+#component-steps .img img.img-hidden
+{
+    opacity: 0;
+}
+#component-steps .img img:not(.img-hidden)
+{
+    /* animation: imageScale 5s linear; */
+}
+#component-steps .img img
+{
+    transition: opacity 500ms;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    border-radius: 2rem;
+    object-fit: cover;   
+}
+
+#component-steps button
+{
+    background-color: rgb(24, 24, 24);
+    color: white;
+    border-radius: 99rem;
+    padding: 1.25rem 3rem;
+    border: none;
+    transition: scale 100ms ease-in-out;
+}
+#component-steps button:active
+{
+    scale: .95;
+}
+
+#component-steps .content
+{
+    margin-top: 8rem;
+}
+
+#component-steps .step
+{
+    cursor: pointer;
+}
+
+#component-steps h2
+{
+    margin: 0;
+    margin-top: var(--steps-gap);
+    transition: opacity 500ms;
+}
+#component-steps .step.step-hidden h2
+{
+    opacity: .4;
+}
+
+#component-steps .bar
+{
+    margin-top: var(--steps-gap);
+    background-color: rgba(22, 22, 22, 0.2);
+    position: relative;
+    height: 1px;
+}
+
+#component-steps .step:not(.step-hidden) .bar > div
+{
+    /* transition: all 500ms ease-in; */
+    background-color: rgb(22, 22, 22);
+    height: 100%;
+    transform-origin: left;
+    scale: 1 1;
+    z-index: 1;
+    position: relative;
+    animation: line 5s linear;
+}
+
+#component-steps .clipper
+{
+    transition: all 500ms ease-out;
+    display: grid;
+    grid-template-rows: 0fr;
+    margin:0;
+}
+#component-steps p
+{
+    overflow: hidden;
+    margin: 0;
+}
+#component-steps .step:not(.step-hidden) .clipper
+{
+    margin:1rem 0;
+    grid-template-rows: 1fr;
+}
+
+@media only screen and (max-width: 768px)
+{
+    #component-steps
+    {
+        padding: 2rem;
+    }
+    #component-steps .content
+    {
+        width: 100%;
+    }
+}
+
+@keyframes line 
+{
+    0%   {scale: 0 1;}
+    100% {scale: 1 1;}
+}
+@keyframes imageScale 
+{
+    0%   {scale: 1;}
+    100% {scale: 1.2;}
+}

@@ -1,0 +1,241 @@
+{{ 'header-dynamic.css' | asset_url | stylesheet_tag }}
+
+{% comment %} // If it's a big component create a new js with the same name scheme in the assets folder {% endcomment %}
+<script src="{{ 'header-dynamic.js' | asset_url }}" defer></script>
+<header id="header-dynamic">
+  <svg xmlns="http://www.w3.org/2000/svg" width="151" height="24" viewBox="0 0 151 24" fill="currentColor">
+    <path d="M13.8418 13.5358L21.6581 0H27.6857L13.8418 23.9767L0 0H6.02762L13.8418 13.5358Z" fill="currentColor"/>
+    <path d="M42.5416 2.38821e-05H37.1493V24H42.5416V2.38821e-05Z" fill="currentColor"/>
+    <path d="M139.836 3.91273H145.227V9.30407H150.619V14.6954H145.227V20.0868H139.836V14.6954H134.444V9.30407H139.836V3.91273Z" fill="currentColor"/>
+    <path d="M71.411 5.07824H64.7328V24H59.3427V5.07824H52.6644V2.38821e-05H71.411V5.07824Z" fill="currentColor"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M83.4837 19.7913H93.2236L94.7186 24H100.631L91.5872 2.38821e-05H85.2223L76.2135 24H81.9887L83.4837 19.7913ZM88.3536 5.948L91.4849 14.8171H85.2223L88.3536 5.948Z" fill="currentColor"/>
+    <path d="M125.575 18.9215V24H110.166V2.38821e-05H115.556V18.9215H125.575Z" fill="currentColor"/>
+  </svg>
+  <div class="header-links">
+    {% for link in linklists.main-menu.links -%}
+      <a class='header-link' href="{{link.url}}">
+        {{link.title}} 
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path d="M6 15L12 9L18 15" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    {%- endfor %}
+  </div>
+  <div style='cursor:pointer' onclick='ToggleCartMenu()'>
+    CART (0) 
+  </div>
+  <div class="expanded-menu-wrapper">
+    <div class="expanded-menu">
+      {% for link in linklists.main-menu.links -%}
+        <div class="expanded-menu-content">
+          <div class="text-content">
+            <div>
+              <h1>{{ link.title }}</h1>
+              <hr></div>
+            <div class='submenu-links'>
+              {% for sublink in link.links -%}
+                {{ sublink.title | link_to: sublink.url }}
+              {% endfor %}
+            </div>
+            <a class='bottom-link' href="{{allproduct}}">
+              Shop All Products
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          </div>
+          <div class="img">
+            {% comment %} <img src="https://images.pexels.com/photos/2335126/pexels-photo-2335126.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt=""> {% endcomment %}
+            {{ section.blocks[forloop.index0].settings.image | img_url: '2048x' | img_tag }}
+          </div>
+        </div>
+        {%- endfor %}
+    </div>
+  </div>
+</header>
+<header id="header-dynamic-mobile">
+  <div class="header-top">
+    <svg xmlns="http://www.w3.org/2000/svg" width="151" height="24" viewBox="0 0 151 24" fill="currentColor">
+      <path d="M13.8418 13.5358L21.6581 0H27.6857L13.8418 23.9767L0 0H6.02762L13.8418 13.5358Z" fill="currentColor"/>
+      <path d="M42.5416 2.38821e-05H37.1493V24H42.5416V2.38821e-05Z" fill="currentColor"/>
+      <path d="M139.836 3.91273H145.227V9.30407H150.619V14.6954H145.227V20.0868H139.836V14.6954H134.444V9.30407H139.836V3.91273Z" fill="currentColor"/>
+      <path d="M71.411 5.07824H64.7328V24H59.3427V5.07824H52.6644V2.38821e-05H71.411V5.07824Z" fill="currentColor"/>
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M83.4837 19.7913H93.2236L94.7186 24H100.631L91.5872 2.38821e-05H85.2223L76.2135 24H81.9887L83.4837 19.7913ZM88.3536 5.948L91.4849 14.8171H85.2223L88.3536 5.948Z" fill="currentColor"/>
+      <path d="M125.575 18.9215V24H110.166V2.38821e-05H115.556V18.9215H125.575Z" fill="currentColor"/>
+    </svg>
+    <svg onclick="ToggleNavMenu()" xmlns="http://www.w3.org/2000/svg" width="32" height="22" viewBox="0 0 32 22" fill="none">
+      <path d="M6 1L25.799 20.799" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      <path d="M6 21L25.799 1.20101" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+  </div>
+  <div class="header-main">
+    {% for link in linklists.main-menu.links -%}
+      <div class='sub-menu'>
+        <div class='sub-menu-title'>
+          <hr>
+          <h1>
+            {{ link.title }}
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M15 7.5L10 12.5L5 7.5" stroke="#222222" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </h1>
+        </div>
+        <div class='clipper'>
+          <div>
+            <div class="img">
+              {% comment %} <img src="https://images.pexels.com/photos/2335126/pexels-photo-2335126.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt=""> {% endcomment %}
+              {{ section.blocks[forloop.index0].settings.image | img_url: '2048x' | img_tag }}
+            </div>
+            {% for sublink in link.links -%}
+              {{ sublink.title | link_to: sublink.url }}
+            {% endfor %}
+            <a class='bottom-link' href="{{allproduct}}">
+              Shop All Products
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</header>
+
+<div id="cart-drawer-dynamic">
+  <div class="cart-drawer-card flex flex-col justify-between p-16">
+
+    <div>
+      <div class='flex justify-between items-centre'>
+        <h1>Cart<sup> 2</sup></h1>
+        <h4 style='cursor:pointer' class='close-button' onclick="ToggleCartMenu()">CLOSE</h4>
+      </div>
+      <hr class='mt-4'>
+    </div>
+
+    <div class='grow-1 cart-items'>
+      <div>
+        <div class='flex gap-4 mt-4 cart-item'>
+          <div class="img">
+            <img src="https://images.pexels.com/photos/13746713/pexels-photo-13746713.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="">
+          </div>
+          <div class='flex flex-col justify-between'>
+            <div>
+              <h3>Ice Bath Ultimate Starter Pack</h3>
+              <h4 class='mt-2'>$249.00</h4>
+            </div>
+            <div class='flex justify-between'>
+              <div class='counter flex justify-between items-center'>
+                <div style='cursor:pointer'>-</div>
+                <div>3</div>
+                <div style='cursor:pointer'>+</div>
+              </div>
+              <div class='remove'>Remove</div>
+            </div>
+          </div>
+        </div>
+        <hr class='mt-4'>
+      </div>
+      <div>
+        <div class='flex gap-4 mt-4 cart-item'>
+          <div class="img">
+            <img src="https://images.pexels.com/photos/13746713/pexels-photo-13746713.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="">
+          </div>
+          <div class='flex flex-col justify-between'>
+            <div>
+              <h3>Ice Bath Ultimate Starter Pack</h3>
+              <h4 class='mt-2'>$249.00</h4>
+            </div>
+            <div class='flex justify-between'>
+              <div class='counter flex justify-between items-center'>
+                <div style='cursor:pointer'>-</div>
+                <div>3</div>
+                <div style='cursor:pointer'>+</div>
+              </div>
+              <div class='remove'>Remove</div>
+            </div>
+          </div>
+        </div>
+        <hr class='mt-4'>
+      </div>
+      <div>
+        <div class='flex gap-4 mt-4 cart-item'>
+          <div class="img">
+            <img src="https://images.pexels.com/photos/13746713/pexels-photo-13746713.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="">
+          </div>
+          <div class='flex flex-col justify-between'>
+            <div>
+              <h3>Ice Bath Ultimate Starter Pack</h3>
+              <h4 class='mt-2'>$249.00</h4>
+            </div>
+            <div class='flex justify-between'>
+              <div class='counter flex justify-between items-center'>
+                <div style='cursor:pointer'>-</div>
+                <div>3</div>
+                <div style='cursor:pointer'>+</div>
+              </div>
+              <div class='remove'>Remove</div>
+            </div>
+          </div>
+        </div>
+        <hr class='mt-4'>
+      </div>
+    </div>
+      
+    <div class=''>
+      <p class='text-center'>Your order qualifies for shipping.</p>
+      <hr>
+      <div class='flex justify-between mt-4'>
+        <h4>Subtotal</h4>
+        <div>
+          <h2 class='text-right'>$249.00</h2>
+          <h4>Taxes Included</h4>
+        </div>
+      </div>
+      <div class='flex gap-4 mt-4'>
+        <button class='w-full outline'>View My Cart</button>
+        <button class='w-full'>Checkout</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  { 
+    "name": "Header Dynamic",
+    "tag": "section",
+    "presets": [
+      {
+        "name": "Header Dynamic",
+        "blocks": []
+      }
+    ],
+    "blocks": [
+      {
+        "name": "Image",
+        "type": "custom-text",
+        "settings": [
+            {
+                "type": "image_picker",
+                "id": "image",
+                "label": "Image"    
+            }
+        ]
+    }
+    ],
+    "settings": [
+      {
+        "type": "link_list",
+        "id": "menu",
+        "default": "main-menu",
+        "label": "Menu"
+      },
+      {
+        "type": "text",
+        "id": "allproduct",
+        "default": "link",
+        "label": "All Products"
+      }
+    ]
+  }
+{% endschema %}

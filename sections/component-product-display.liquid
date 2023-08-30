@@ -1,0 +1,94 @@
+{% comment %} // If it's a big component create a new css file with the same name scheme in the assets folder {% endcomment %}
+{{ 'component-product-display.css' | asset_url | stylesheet_tag }}
+
+{% comment %} // If it's a big component create a new js with the same name scheme in the assets folder {% endcomment %}
+<script src="{{ 'component-product-display.js' | asset_url }}" defer></script>
+
+<div id="product-display">
+  <section id="product">
+    {{ section.settings.image | img_url: '2048x' | img_tag }}
+    <div class="points-holder">
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'custom-text' %}
+            <div
+              data-tip="{{block.settings.content}}"
+              style="left: {{block.settings.x}}%;top: {{block.settings.y}}%;"
+              class="point {% if block.settings.right == true %}right{% endif %}"
+            >
+              1
+            </div>
+        {% endcase %}
+      {% endfor %}
+    </div>
+  </section>
+  <section id="mobile">
+    <ol>
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'custom-text' %}
+            <li>{{ block.settings.content }}</li>
+        {% endcase %}
+      {% endfor %}
+    </ol>
+  </section>
+</div>
+
+{% schema %}
+{
+  // Remember to add unique section name in both name fields.
+  "name": "Product Display",
+  "tag": "section",
+  "presets": [
+    {
+      "name": "Product Display",
+      "blocks": []
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Description Point",
+      "type": "custom-text",
+      "settings": [
+        {
+          "type": "range",
+          "label": "X-Percent",
+          "id": "x",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "default": 50
+        },
+        {
+          "type": "range",
+          "label": "Y-Percent",
+          "id": "y",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "default": 50
+        },
+        {
+          "type": "text",
+          "label": "Point-Content",
+          "id": "content",
+          "default": "Detachable window"
+        },
+        {
+          "type": "checkbox",
+          "label": "Anchor-Right",
+          "id": "right",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    }
+  ]
+}
+{% endschema %}

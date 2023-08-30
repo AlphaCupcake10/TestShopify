@@ -1,0 +1,173 @@
+#product-display
+{
+    margin-top: 4rem;
+    max-width: var(--page-width);
+    margin-inline: auto;
+    padding-inline: 20%;
+}
+
+@media (max-width: 768px)
+{
+    #product-display
+    {
+        padding-inline: 2rem;
+    }
+}
+
+#product-display #product
+{
+    position: relative;
+}
+#product-display #product img, #product-display #product .points-holder
+{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 2rem;
+}
+#product-display #product .points-holder
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    /* z-index: 10; */
+}
+#product-display #product .point
+{
+    position: absolute;
+    height: 24px;
+    width: 24px;
+    background-color: white;
+    color: white;
+    border-radius: 99rem;
+    transform: translate(-50%,-50%);
+    text-align: center;
+    user-select: none;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#product-display #product .point svg
+{
+    transition: all 550ms ease-in-out;
+    color: #222;
+    scale: .75;
+}
+#product-display #product .point::after
+{
+    content: "";
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    position: absolute;
+    scale: 1;
+    transition: all 150ms ease-in-out;
+    background-color: rgba(255, 255, 255, 0.488);
+    border-radius: 99rem;
+    z-index: -1;
+    animation: pointInteractable 2s infinite;
+}
+#product-display #product .point:hover::after
+{
+    scale: 2;
+}
+#product-display #product .point.active::after
+{
+    animation: none;
+    scale: 1;
+}
+
+#product-display #product .point::before
+{
+    box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.22);
+    content: attr(data-tip);
+    position: absolute;
+    width: max-content;
+    background-color: white;
+    color: #222;
+    border-radius: .5rem;
+    padding: 1rem;
+    left: 0;
+    top:0;
+    transform: translate(-102%,0%);
+    translate: 0 1rem;
+    opacity: 0;
+    transition: all 300ms ease-in-out;
+}
+#product-display #product .point.right::before
+{
+    /* background-color: red; */
+    left: 135%;
+    transform: translate(0%,0%);
+}
+#product-display #product .point.active::before
+{
+    translate: 0;
+    opacity: 1;
+}
+@media (max-width: 768px)
+{
+    #product-display #product .point
+    {
+        pointer-events: none;
+        color: #222;
+    }
+    #product-display #product .point::after
+    {
+        content: none;
+    }
+    #product-display #product .point::before
+    {
+        display: none;
+    }
+}
+@media (max-width: 1024px)
+{
+    .point::before
+    {
+        padding: .4rem;
+        font-size: 1rem;
+    }
+}
+
+#mobile
+{
+    display: none;
+    padding: .5rem;
+}
+#mobile ol
+{
+    padding-inline-start: 0;
+}
+#mobile li
+{
+    padding: 1rem;
+    margin: .5rem;
+    list-style-position: inside;
+    background-color: rgb(242, 242, 242);
+    color: #222;
+    border-radius: .5rem;
+}
+
+@media (max-width: 768px)
+{
+    #mobile
+    {
+        display: block;
+    }
+}
+
+@keyframes pointInteractable
+{
+    0%{scale:1;opacity:0}
+    50%{scale:2;opacity:1}
+    100%{scale:2;opacity: 0;}
+}
