@@ -10,11 +10,13 @@
     justify-content: space-between;
     align-items: center;
     
+    /* CHANGE TO STICKY IF REQUIRED */
     position: absolute;
     width: 100%;
     top:0;
     left: 0;
-    color: white;
+    /* variable loads from editor */
+    color: var(--text-color);
     transition: color 300ms ease-in-out;
     
     .expanded-menu-wrapper

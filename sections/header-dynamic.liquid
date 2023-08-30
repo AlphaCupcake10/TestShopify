@@ -1,5 +1,16 @@
 {{ 'header-dynamic.css' | asset_url | stylesheet_tag }}
 
+{% stylesheet %}
+
+#header-dynamic
+{
+  /* --text-color:{%section.settings.textColor%}; */
+  --text-color:white;
+  /* TODO Read From Settings */
+}
+
+{% endstylesheet %}
+
 {% comment %} // If it's a big component create a new js with the same name scheme in the assets folder {% endcomment %}
 <script src="{{ 'header-dynamic.js' | asset_url }}" defer></script>
 <header id="header-dynamic">
@@ -89,7 +100,7 @@
             {% for sublink in link.links -%}
               {{ sublink.title | link_to: sublink.url }}
             {% endfor %}
-            <a class='bottom-link' href="{{allproduct}}">
+            <a class='bottom-link' href="{{section.settings.allproduct}}">
               Shop All Products
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
                 <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
@@ -235,6 +246,12 @@
         "id": "allproduct",
         "default": "link",
         "label": "All Products"
+      },
+      {
+        "type": "color",
+        "id": "textColor",
+        "default": "#fff",
+        "label": "Text Color"
       }
     ]
   }
