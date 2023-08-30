@@ -1,19 +1,9 @@
 {{ 'header-dynamic.css' | asset_url | stylesheet_tag }}
 
-{% stylesheet %}
-
-#header-dynamic
-{
-  /* --text-color:{%section.settings.textColor%}; */
-  --text-color:white;
-  /* TODO Read From Settings */
-}
-
-{% endstylesheet %}
 
 {% comment %} // If it's a big component create a new js with the same name scheme in the assets folder {% endcomment %}
 <script src="{{ 'header-dynamic.js' | asset_url }}" defer></script>
-<header id="header-dynamic">
+<header style='--text-color:{{section.settings.textColor}}' id="header-dynamic">
   <svg xmlns="http://www.w3.org/2000/svg" width="151" height="24" viewBox="0 0 151 24" fill="currentColor">
     <path d="M13.8418 13.5358L21.6581 0H27.6857L13.8418 23.9767L0 0H6.02762L13.8418 13.5358Z" fill="currentColor"/>
     <path d="M42.5416 2.38821e-05H37.1493V24H42.5416V2.38821e-05Z" fill="currentColor"/>
