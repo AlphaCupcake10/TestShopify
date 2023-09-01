@@ -197,6 +197,8 @@
 {
     /* background-color: red; */
     z-index: 10;
+
+    pointer-events: none;
     
     position: absolute;
     width: 100%;
@@ -233,8 +235,10 @@
         position: absolute;
         z-index: 10;
         width: 100%;
-    }
 
+        pointer-events: initial;
+    }
+    
     .header-main
     {
         flex-grow: 1;
@@ -243,7 +247,8 @@
         transform: translateX(100%);
         padding: 8rem;
         padding-top: 12rem;
-
+        
+        pointer-events: initial;
 
 
         .img
