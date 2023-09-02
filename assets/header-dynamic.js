@@ -34,3 +34,44 @@ function ToggleCartMenu()
 {
     cartDrawerDynamic.classList.toggle("cart-active");
 }
+
+let counterpluses = cartDrawerDynamic.querySelectorAll('.counter_plus');
+let counterminuses = cartDrawerDynamic.querySelectorAll('.counter_minus');
+let countervalues = cartDrawerDynamic.querySelectorAll('.counter_value');
+
+
+counterpluses.forEach((Element,index)=>{
+    Element.addEventListener("click",()=>{
+        let prev = countervalues[index].innerHTML;
+        prev = parseInt(prev,10) + 1;
+        countervalues[index].innerHTML = prev;
+        const key = Element.getAttribute("data-key");
+        changeItemQuantity(key,prev);
+    })
+})
+counterminuses.forEach((Element,index)=>{
+    Element.addEventListener("click",()=>{
+        let prev = countervalues[index].innerHTML;
+        prev = parseInt(prev,10);
+        if(prev >= 2)
+        {
+            prev --;
+        }
+        countervalues[index].innerHTML = prev;
+        const key = Element.getAttribute("data-key");
+        changeItemQuantity(key,prev);
+    })
+})
+
+async function changeItemQuantity(key,quantity)
+{
+    console.log(key,quantity);
+    let response = await (await fetch("/cart/change.js",{
+        body:
+        {
+            "id":key,
+            "quantity":quantity
+        }
+    })).json();
+    console.log(response);
+}
