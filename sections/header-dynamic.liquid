@@ -1,4 +1,5 @@
 {{ 'header-dynamic.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
 
 {% comment %} // If it's a big component create a new js with the same name scheme in the assets folder {% endcomment %}
 <script src="{{ 'header-dynamic.js' | asset_url }}" defer></script>
@@ -21,7 +22,7 @@
       </a>
     {%- endfor %}
   </div>
-  <div style="cursor:pointer" onclick="ToggleCartMenu()">CART ({{ cart.item_count }})</div>
+  <div class='header-dynamic__cart-button' style="cursor:pointer" onclick="ToggleCartMenu()">CART ({{ cart.item_count }})</div>
   <div class="expanded-menu-wrapper">
     <div class="expanded-menu">
       {% for link in linklists['main-menu'].links -%}
@@ -119,34 +120,38 @@
     </div>
 
     <div class="grow-1 header-dynamic_cart-items">
-        {% for item in cart.items %}
-          <div>
-            <div class="flex gap-4 mt-4 header-dynamic_cart-item">
-              <div class="img">
-                {{ item.image | img_url: '2048x' | img_tag }}
-              </div>
-              <div class="flex flex-col justify-between">
-                <div>
-                  <a href="{{ item.url }}" class="cart-item__name h4 break">
-                    {{- item.product.title | escape -}}
-                  </a>
-                  <div class="product-option">
-                    {{ item.original_price | money }}
+        {% if cart.empty? %}
+          <h2>Your Cart is Empty.</h2>
+        {% else %}
+          {% for item in cart.items %}
+            <div>
+              <div class="flex gap-4 mt-4 header-dynamic_cart-item">
+                <div class="img">
+                  {{ item.image | img_url: '200x' | img_tag }}
+                </div>
+                <div class="flex flex-col justify-between grow-1">
+                  <div>
+                    <a href="{{ item.url }}" class="cart-item__name h4 break">
+                      {{- item.product.title | escape -}}
+                    </a>
+                    <div class="product-option">
+                      {{ item.original_price | money }}
+                    </div>
+                  </div>
+                  <div class="flex justify-between">
+                    <div data-key={{ item.key }} class="counter flex justify-between items-center">
+                      <div style='cursor:pointer' class='counter_minus'>-</div>
+                      <div class='counter_value'>{{ item.quantity }}</div>
+                      <div style='cursor:pointer' class='counter_plus'>+</div>
+                    </div>
+                    <div data-key={{ item.key }} class='header-dynamic__remove-button' class="remove">Remove</div>
                   </div>
                 </div>
-                <div class="flex justify-between">
-                  <div class="counter flex justify-between items-center">
-                    <div data-key={{ item.key }} style='cursor:pointer' class='counter_minus'>-</div>
-                    <div class='counter_value'>{{ item.quantity }}</div>
-                    <div data-key={{ item.key }} style='cursor:pointer' class='counter_plus'>+</div>
-                  </div>
-                  <a href="{{ item.url_to_remove }}" class="remove">Remove</a>
-                </div>
               </div>
+              <hr class="mt-4">
             </div>
-            <hr class="mt-4">
-          </div>
-        {% endfor %}
+          {% endfor %}
+        {% endif %}
     </div>
 
     <div class="">

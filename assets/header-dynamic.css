@@ -2,6 +2,10 @@
 {
     /* outline: rgb(193, 193, 193) solid 2px; */
 }
+.drawer
+{
+    display: none;
+}
 #header-dynamic
 {
     z-index: 10;
@@ -367,15 +371,24 @@
 }
 #cart-drawer-dynamic
 {
-    /* background-color: red; */
     position: fixed;
     width: 100%;
     height: 100%;
     top: 0;
     left: 0;
     z-index: 20;
-
-    pointer-events: none;
+    
+    
+    transition: background-color 300ms ease-in-out;
+    
+    &:is(.cart-active)
+    {
+        background-color: rgba(0, 0, 0, 0.486);
+    }
+    &:not(.cart-active)
+    {
+        pointer-events: none;
+    }
 
     .flex
     {
@@ -533,6 +546,7 @@
     }
     .counter
     {
+        user-select: none;
         gap:2rem;
         background-color: rgba(34, 34, 34, 0.04);
         border-radius: 99rem;
@@ -554,6 +568,11 @@
         display: flex;
         justify-content: center;
         align-items: center;
+    }
+    .header-dynamic__remove-button
+    {
+        cursor: pointer;
+        user-select: none;
     }
 }
 #cart-drawer-dynamic:not(.cart-active) .cart-drawer-card

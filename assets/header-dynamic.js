@@ -34,44 +34,85 @@ function ToggleCartMenu()
 {
     cartDrawerDynamic.classList.toggle("cart-active");
 }
-
-let counterpluses = cartDrawerDynamic.querySelectorAll('.counter_plus');
-let counterminuses = cartDrawerDynamic.querySelectorAll('.counter_minus');
-let countervalues = cartDrawerDynamic.querySelectorAll('.counter_value');
-
-
-counterpluses.forEach((Element,index)=>{
-    Element.addEventListener("click",()=>{
-        let prev = countervalues[index].innerHTML;
-        prev = parseInt(prev,10) + 1;
-        countervalues[index].innerHTML = prev;
-        const key = Element.getAttribute("data-key");
-        changeItemQuantity(key,prev);
-    })
-})
-counterminuses.forEach((Element,index)=>{
-    Element.addEventListener("click",()=>{
-        let prev = countervalues[index].innerHTML;
-        prev = parseInt(prev,10);
-        if(prev >= 2)
-        {
-            prev --;
-        }
-        countervalues[index].innerHTML = prev;
-        const key = Element.getAttribute("data-key");
-        changeItemQuantity(key,prev);
-    })
-})
-
-async function changeItemQuantity(key,quantity)
+function OpenCartMenu()
 {
-    console.log(key,quantity);
-    let response = await (await fetch("/cart/change.js",{
-        body:
-        {
-            "id":key,
-            "quantity":quantity
-        }
-    })).json();
+    cartDrawerDynamic.classList.add("cart-active");
+}
+function CloseCartMenu()
+{
+    cartDrawerDynamic.classList.remove("cart-active");
+}
+
+// document.querySelectorAll('form[action="/cart/add"]').forEach(form=>{
+//     form.onsubmit = async (e)=>{
+//         e.preventDefault();
+//         setTimeout(async () => {
+//             await updateCartDrawer();
+//             OpenCartMenu();
+//         }, 500);
+//     }
+// })
+
+document.querySelector("#cart-drawer-dynamic").addEventListener("click",(e)=>{
+    CloseCartMenu();
+})
+document.querySelector(".cart-drawer-card").addEventListener("click",(e)=>{
+    e.stopPropagation();
+})
+updateCartDrawer();
+async function updateCartDrawer()
+{
+    let response = await (await fetch('?/section_id=cart-drawer')).text();
     console.log(response);
+
+    const html = document.createElement("html");
+    html.innerHTML = response;
+
+    let newBox = html.querySelector(".cart-drawer-card").innerHTML;
+    document.querySelector(".cart-drawer-card").innerHTML = newBox;
+
+    newBox = html.querySelector(".header-dynamic__cart-button").innerHTML;
+    document.querySelector(".header-dynamic__cart-button").innerHTML = newBox;
+
+    const removeBtn = document.querySelector('.header-dynamic__remove-button');
+    removeBtn.addEventListener("click",()=>{
+        updateQuantity(removeBtn.getAttribute("data-key"),0);
+    })
+
+    document.querySelectorAll("#cart-drawer-dynamic .counter").forEach(counter=>{
+        const minus = counter.children[0];
+        const input = counter.children[1];
+        const plus = counter.children[2];
+        const key = counter.getAttribute("data-key");
+    
+        minus.addEventListener("click",()=>{
+            let current = parseInt(input.innerHTML,10);
+            current --;
+            input.innerHTML = current.toString();
+            updateQuantity(key,current);
+        })
+        plus.addEventListener("click",()=>{
+            let current = parseInt(input.innerHTML,10);
+            current ++;
+            input.innerHTML = current.toString();
+            updateQuantity(key,current);
+        })
+    })
+
+    OpenCartMenu();
+}
+
+
+async function updateQuantity(key,quantity)
+{
+    const res = await fetch("/cart/update.js",{
+        method:"post",
+        headers:{
+            Accept:"application/json",
+            "Content-Type":"application/json"
+        },
+        body:JSON.stringify({updates:{ [key]:quantity }})
+    })
+    console.log(res);
+    updateCartDrawer();
 }
