@@ -1,9 +1,19 @@
 {{ 'header-dynamic.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
 
-{% comment %} // If it's a big component create a new js with the same name scheme in the assets folder {% endcomment %}
+{% stylesheet %}
+  .header-text-color {
+    --text-color: white;
+  }
+
+  .color-cart {
+    --text-color: black !important;
+  }
+{% endstylesheet %}
+
 <script src="{{ 'header-dynamic.js' | asset_url }}" defer></script>
-<header style="--text-color:{{section.settings.textColor}}" id="header-dynamic">
+
+<header class="header-text-color color-{{ template | handle }}" id="header-dynamic">
   <svg xmlns="http://www.w3.org/2000/svg" width="151" height="24" viewBox="0 0 151 24" fill="currentColor">
     <path d="M13.8418 13.5358L21.6581 0H27.6857L13.8418 23.9767L0 0H6.02762L13.8418 13.5358Z" fill="currentColor"/>
     <path d="M42.5416 2.38821e-05H37.1493V24H42.5416V2.38821e-05Z" fill="currentColor"/>
@@ -22,7 +32,11 @@
       </a>
     {%- endfor %}
   </div>
-  <div class='header-dynamic__cart-button' style="cursor:pointer" onclick="ToggleCartMenu()">CART ({{ cart.item_count }})</div>
+  <div class="header-dynamic__cart-button" style="cursor:pointer" onclick="ToggleCartMenu()">
+    {% if template != 'cart' %}
+      CART ({{ cart.item_count }})
+    {% endif %}
+  </div>
   <div class="expanded-menu-wrapper">
     <div class="expanded-menu">
       {% for link in linklists['main-menu'].links -%}
@@ -108,18 +122,19 @@
     {% endfor %}
   </div>
 </header>
-
-<div id="cart-drawer-dynamic">
-  <div class="cart-drawer-card flex flex-col justify-between p-16">
-    <div>
-      <div class="flex justify-between items-centre">
-        <h1>Cart<sup> {{ cart.item_count }}</sup></h1>
-        <h4 style="cursor:pointer" class="close-button" onclick="ToggleCartMenu()">CLOSE</h4>
+{% if template != 'cart' %}
+  <div id="cart-drawer-dynamic">
+    <div class="cart-drawer-card flex flex-col justify-between p-16">
+      <div>
+        <div class="flex justify-between items-centre">
+          <h1>
+            Cart<sup> {{ cart.item_count }}</sup>
+          </h1>
+          <h4 style="cursor:pointer" class="close-button" onclick="ToggleCartMenu()">CLOSE</h4>
+        </div>
+        <hr class="mt-4">
       </div>
-      <hr class="mt-4">
-    </div>
-
-    <div class="grow-1 header-dynamic_cart-items">
+      <div class="grow-1 header-dynamic_cart-items">
         {% if cart.empty? %}
           <h2>Your Cart is Empty.</h2>
         {% else %}
@@ -139,12 +154,12 @@
                     </div>
                   </div>
                   <div class="flex justify-between">
-                    <div data-key={{ item.key }} class="counter flex justify-between items-center">
-                      <div style='cursor:pointer' class='counter_minus'>-</div>
-                      <div class='counter_value'>{{ item.quantity }}</div>
-                      <div style='cursor:pointer' class='counter_plus'>+</div>
+                    <div data-key="{{ item.key }}" class="counter flex justify-between items-center">
+                      <div style="cursor:pointer" class="counter_minus">-</div>
+                      <div class="counter_value">{{ item.quantity }}</div>
+                      <div style="cursor:pointer" class="counter_plus">+</div>
                     </div>
-                    <div data-key={{ item.key }} class='header-dynamic__remove-button' class="remove">Remove</div>
+                    <div data-key="{{ item.key }}" class="header-dynamic__remove-button" class="remove">Remove</div>
                   </div>
                 </div>
               </div>
@@ -152,27 +167,28 @@
             </div>
           {% endfor %}
         {% endif %}
-    </div>
-
-    <div class="">
-      <p class="text-center">Your order qualifies for shipping.</p>
-      <hr>
-      <div class="flex justify-between mt-4">
-        <h4>Subtotal</h4>
-        <div>
-          <h2 class="text-right">{{ cart.checkout_charge_amount | money }}</h2>
-          <h4>Taxes Included</h4>
-        </div>
       </div>
-      <form action="{{ routes.cart_url }}" method="post">
-        <div class="flex gap-4 mt-4">
-          <button class="w-full outline">View My Cart</button>
-          <input class="w-full" type="submit" name="checkout" value="Checkout">
+
+      <div class="">
+        <p class="text-center">Your order qualifies for shipping.</p>
+        <hr>
+        <div class="flex justify-between mt-4">
+          <h4>Subtotal</h4>
+          <div>
+            <h2 class="text-right">{{ cart.checkout_charge_amount | money }}</h2>
+            <h4>Taxes Included</h4>
+          </div>
         </div>
-      </form>
+        <form action="{{ routes.cart_url }}" method="post">
+          <div class="flex gap-4 mt-4">
+            <button class="w-full outline">View My Cart</button>
+            <input class="w-full" type="submit" name="checkout" value="Checkout">
+          </div>
+        </form>
+      </div>
     </div>
   </div>
-</div>
+{% endif %}
 
 {% schema %}
 {
