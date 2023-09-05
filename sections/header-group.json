@@ -48,9 +48,42 @@
     },
     "605ebf6c-afc9-481e-b88f-acd46835445b": {
       "type": "header-dynamic",
+      "blocks": {
+        "752d333f-4a9f-4fea-8010-b4354b78933b": {
+          "type": "custom-text",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/RetroRingFinal.png"
+          }
+        },
+        "ca292677-d82b-485f-852f-a0608c5e4c9c": {
+          "type": "custom-text",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Cub.png"
+          }
+        },
+        "e8f59f76-c468-4eee-abad-9ee7c32855b4": {
+          "type": "custom-text",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/cat.webp"
+          }
+        },
+        "7ea271f8-090a-4103-83bb-221d4fd71d22": {
+          "type": "custom-text",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Wallpaper.png"
+          }
+        }
+      },
+      "block_order": [
+        "752d333f-4a9f-4fea-8010-b4354b78933b",
+        "ca292677-d82b-485f-852f-a0608c5e4c9c",
+        "e8f59f76-c468-4eee-abad-9ee7c32855b4",
+        "7ea271f8-090a-4103-83bb-221d4fd71d22"
+      ],
       "settings": {
         "menu": "main-menu",
-        "allproduct": "link"
+        "allproduct": "link",
+        "textColor": "#fff"
       }
     }
   },

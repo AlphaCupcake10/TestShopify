@@ -318,6 +318,10 @@
     margin: 0;
 }
 #cart-drawer-dynamic {
+    .is-loading {
+        opacity: 0.25;
+        /* background-color: red; */
+    }
     position: fixed;
     width: 100%;
     height: 100%;

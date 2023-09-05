@@ -77,10 +77,18 @@ async function updateCartDrawer(openCart) {
     newBox = html.querySelector(".header-dynamic__cart-button").innerHTML;
     document.querySelector(".header-dynamic__cart-button").innerHTML = newBox;
 
-    const removeBtn = document.querySelector(".header-dynamic__remove-button");
-    removeBtn.addEventListener("click", () => {
-        updateQuantity(removeBtn.getAttribute("data-key"), 0);
-    });
+    document
+        .querySelectorAll(".header-dynamic__remove-button")
+        .forEach((removeBtn) => {
+            removeBtn.addEventListener("click", () => {
+                // console.log("HELP");
+                updateQuantity(
+                    removeBtn.getAttribute("data-key"),
+                    0,
+                    removeBtn.parentElement.parentElement.parentElement
+                );
+            });
+        });
 
     document
         .querySelectorAll("#cart-drawer-dynamic .counter")
@@ -93,21 +101,37 @@ async function updateCartDrawer(openCart) {
             minus.addEventListener("click", () => {
                 let current = parseInt(input.innerHTML, 10);
                 current--;
-                input.innerHTML = current.toString();
-                updateQuantity(key, current);
+                // input.innerHTML = current.toString();
+                updateQuantity(
+                    key,
+                    current,
+                    counter.parentElement.parentElement.parentElement
+                );
             });
             plus.addEventListener("click", () => {
                 let current = parseInt(input.innerHTML, 10);
                 current++;
-                input.innerHTML = current.toString();
-                updateQuantity(key, current);
+                // input.innerHTML = current.toString();
+                updateQuantity(
+                    key,
+                    current,
+                    counter.parentElement.parentElement.parentElement
+                );
             });
         });
 
     if (openCart) OpenCartMenu();
 }
 
-async function updateQuantity(key, quantity) {
+let isFetching = false;
+async function updateQuantity(key, quantity, item) {
+    item.classList.add("is-loading");
+    console.log(item);
+    if (isFetching) {
+        // console.log("is Loading");
+        return;
+    }
+    isFetching = true;
     const res = await fetch("/cart/update.js", {
         method: "post",
         headers: {
@@ -116,6 +140,7 @@ async function updateQuantity(key, quantity) {
         },
         body: JSON.stringify({ updates: { [key]: quantity } }),
     });
-    console.log(res);
+    isFetching = false;
+    // console.log(res);
     updateCartDrawer(true);
 }
