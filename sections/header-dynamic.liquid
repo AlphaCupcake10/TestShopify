@@ -169,7 +169,7 @@
         {% endif %}
       </div>
 
-      <div class="">
+      <div class="header-dynamic_cart-footer">
         <p class="text-center">Your order qualifies for shipping.</p>
         <hr>
         <div class="flex justify-between mt-4">
@@ -181,8 +181,8 @@
         </div>
         <form action="{{ routes.cart_url }}" method="post">
           <div class="flex gap-4 mt-4">
-            <button class="w-full outline">View My Cart</button>
-            <input class="w-full" type="submit" name="checkout" value="Checkout">
+            <button class="w-full outline clickable">View My Cart</button>
+            <input class="w-full clickable" type="submit" name="checkout" value="Checkout">
           </div>
         </form>
       </div>

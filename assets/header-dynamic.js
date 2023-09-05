@@ -125,6 +125,7 @@ async function updateCartDrawer(openCart) {
 
 let isFetching = false;
 async function updateQuantity(key, quantity, item) {
+    document.querySelector(".header-dynamic_cart-footer").classList.add("is-loading");
     item.classList.add("is-loading");
     console.log(item);
     if (isFetching) {

@@ -318,7 +318,17 @@
     margin: 0;
 }
 #cart-drawer-dynamic {
+    .clickable
+    {
+        cursor: pointer;
+        transition: scale 150ms ease-in-out;
+    }
+    .clickable:active
+    {
+        scale: .95;
+    }
     .is-loading {
+        pointer-events: none;
         opacity: 0.25;
         /* background-color: red; */
     }
