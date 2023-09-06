@@ -4,6 +4,10 @@
 .drawer {
     display: none;
 }
+.header-dynamic__logo
+{
+    color: inherit;
+}
 #header-dynamic {
     z-index: 10;
     padding: 4rem;
@@ -172,6 +176,35 @@
 }
 
 #header-dynamic-mobile {
+
+    .header-dynamic__hamburger
+    {
+        position: relative;
+    }
+    .header-dynamic__hamburger svg
+    {
+        position: absolute;
+        right: 0;
+        top: 50%;
+        translate: 0 -50%;
+        transition: opacity 150ms ease-in-out;
+    }
+    &:is(.active-menu)
+    {
+        .header-dynamic__hamburger svg:first-child
+        {
+            opacity: 0;
+        }
+    }
+    &:not(.active-menu)
+    {
+        .header-dynamic__hamburger svg:last-child
+        {
+            opacity: 0;
+        }
+    }
+
+
     /* background-color: red; */
     z-index: 10;
 

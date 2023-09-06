@@ -14,14 +14,16 @@
 <script src="{{ 'header-dynamic.js' | asset_url }}" defer></script>
 
 <header class="header-text-color color-{{ template | handle }}" id="header-dynamic">
-  <svg xmlns="http://www.w3.org/2000/svg" width="151" height="24" viewBox="0 0 151 24" fill="currentColor">
-    <path d="M13.8418 13.5358L21.6581 0H27.6857L13.8418 23.9767L0 0H6.02762L13.8418 13.5358Z" fill="currentColor"/>
-    <path d="M42.5416 2.38821e-05H37.1493V24H42.5416V2.38821e-05Z" fill="currentColor"/>
-    <path d="M139.836 3.91273H145.227V9.30407H150.619V14.6954H145.227V20.0868H139.836V14.6954H134.444V9.30407H139.836V3.91273Z" fill="currentColor"/>
-    <path d="M71.411 5.07824H64.7328V24H59.3427V5.07824H52.6644V2.38821e-05H71.411V5.07824Z" fill="currentColor"/>
-    <path fill-rule="evenodd" clip-rule="evenodd" d="M83.4837 19.7913H93.2236L94.7186 24H100.631L91.5872 2.38821e-05H85.2223L76.2135 24H81.9887L83.4837 19.7913ZM88.3536 5.948L91.4849 14.8171H85.2223L88.3536 5.948Z" fill="currentColor"/>
-    <path d="M125.575 18.9215V24H110.166V2.38821e-05H115.556V18.9215H125.575Z" fill="currentColor"/>
-  </svg>
+  <a href="{{ routes.root_url }}" class='header-dynamic__logo'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="151" height="24" viewBox="0 0 151 24" fill="currentColor">
+      <path d="M13.8418 13.5358L21.6581 0H27.6857L13.8418 23.9767L0 0H6.02762L13.8418 13.5358Z" fill="currentColor"/>
+      <path d="M42.5416 2.38821e-05H37.1493V24H42.5416V2.38821e-05Z" fill="currentColor"/>
+      <path d="M139.836 3.91273H145.227V9.30407H150.619V14.6954H145.227V20.0868H139.836V14.6954H134.444V9.30407H139.836V3.91273Z" fill="currentColor"/>
+      <path d="M71.411 5.07824H64.7328V24H59.3427V5.07824H52.6644V2.38821e-05H71.411V5.07824Z" fill="currentColor"/>
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M83.4837 19.7913H93.2236L94.7186 24H100.631L91.5872 2.38821e-05H85.2223L76.2135 24H81.9887L83.4837 19.7913ZM88.3536 5.948L91.4849 14.8171H85.2223L88.3536 5.948Z" fill="currentColor"/>
+      <path d="M125.575 18.9215V24H110.166V2.38821e-05H115.556V18.9215H125.575Z" fill="currentColor"/>
+    </svg>
+  </a>
   <div class="header-links">
     {% for link in linklists['main-menu'].links -%}
       <a class="header-link" href="{{link.url}}">
@@ -69,25 +71,33 @@
 </header>
 <header id="header-dynamic-mobile">
   <div class="header-top">
-    <svg xmlns="http://www.w3.org/2000/svg" width="151" height="24" viewBox="0 0 151 24" fill="currentColor">
-      <path d="M13.8418 13.5358L21.6581 0H27.6857L13.8418 23.9767L0 0H6.02762L13.8418 13.5358Z" fill="currentColor"/>
-      <path d="M42.5416 2.38821e-05H37.1493V24H42.5416V2.38821e-05Z" fill="currentColor"/>
-      <path d="M139.836 3.91273H145.227V9.30407H150.619V14.6954H145.227V20.0868H139.836V14.6954H134.444V9.30407H139.836V3.91273Z" fill="currentColor"/>
-      <path d="M71.411 5.07824H64.7328V24H59.3427V5.07824H52.6644V2.38821e-05H71.411V5.07824Z" fill="currentColor"/>
-      <path fill-rule="evenodd" clip-rule="evenodd" d="M83.4837 19.7913H93.2236L94.7186 24H100.631L91.5872 2.38821e-05H85.2223L76.2135 24H81.9887L83.4837 19.7913ZM88.3536 5.948L91.4849 14.8171H85.2223L88.3536 5.948Z" fill="currentColor"/>
-      <path d="M125.575 18.9215V24H110.166V2.38821e-05H115.556V18.9215H125.575Z" fill="currentColor"/>
-    </svg>
-    <svg
-      onclick="ToggleNavMenu()"
-      xmlns="http://www.w3.org/2000/svg"
-      width="32"
-      height="22"
-      viewBox="0 0 32 22"
-      fill="none"
-    >
-      <path d="M6 1L25.799 20.799" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-      <path d="M6 21L25.799 1.20101" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-    </svg>
+    <a href="{{ routes.root_url }}" class='header-dynamic__logo'>
+      <svg class='header-dynamic__logo' xmlns="http://www.w3.org/2000/svg" width="151" height="24" viewBox="0 0 151 24" fill="currentColor">
+        <path d="M13.8418 13.5358L21.6581 0H27.6857L13.8418 23.9767L0 0H6.02762L13.8418 13.5358Z" fill="currentColor"/>
+        <path d="M42.5416 2.38821e-05H37.1493V24H42.5416V2.38821e-05Z" fill="currentColor"/>
+        <path d="M139.836 3.91273H145.227V9.30407H150.619V14.6954H145.227V20.0868H139.836V14.6954H134.444V9.30407H139.836V3.91273Z" fill="currentColor"/>
+        <path d="M71.411 5.07824H64.7328V24H59.3427V5.07824H52.6644V2.38821e-05H71.411V5.07824Z" fill="currentColor"/>
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M83.4837 19.7913H93.2236L94.7186 24H100.631L91.5872 2.38821e-05H85.2223L76.2135 24H81.9887L83.4837 19.7913ZM88.3536 5.948L91.4849 14.8171H85.2223L88.3536 5.948Z" fill="currentColor"/>
+        <path d="M125.575 18.9215V24H110.166V2.38821e-05H115.556V18.9215H125.575Z" fill="currentColor"/>
+      </svg>
+    </a>
+    <div onclick="ToggleNavMenu()" class='header-dynamic__hamburger'>
+      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="12" viewBox="0 0 32 12" fill="none">
+        <path d="M1 1.26709H31" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M9.65978 10.5454L31 10.5454" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="14" viewBox="0 0 20 14" fill="none">
+        <g clip-path="url(#clip0_16_12)">
+          <path d="M16.25 0.63636L3.87563 13.2357" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M16.25 13.3636L3.87563 0.764282" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </g>
+        <defs>
+          <clipPath id="clip0_16_12">
+            <rect width="20" height="14" fill="white" transform="matrix(-1 0 0 1 20 0)"/>
+          </clipPath>
+        </defs>
+      </svg>
+    </div>
   </div>
   <div class="header-main">
     {% for link in linklists['main-menu'].links -%}
