@@ -1,6 +1,3 @@
-* {
-    /* outline: rgb(193, 193, 193) solid 2px; */
-}
 .drawer {
     display: none;
 }
@@ -176,13 +173,22 @@
 }
 
 #header-dynamic-mobile {
-
+    .header-dynamic__button
+    {
+        display: flex;
+        gap: 5rem;
+    }
+    .header-dynamic__logo
+    {
+        width: 10rem;
+    }
     .header-dynamic__hamburger
     {
         position: relative;
     }
     .header-dynamic__hamburger svg
     {
+        margin-left: 100px;
         position: absolute;
         right: 0;
         top: 50%;
@@ -347,6 +353,7 @@
 #cart-drawer-dynamic h2,
 #cart-drawer-dynamic h3,
 #cart-drawer-dynamic h4,
+#cart-drawer-dynamic p,
 #cart-drawer-dynamic hr {
     margin: 0;
 }
@@ -390,7 +397,10 @@
     .justify-between {
         justify-content: space-between;
     }
-    .items-centre {
+    .justify-center {
+        justify-content: center;
+    }
+    .items-center {
         align-items: center;
     }
     .grow-1 {
@@ -417,11 +427,18 @@
     .w-full {
         width: 100%;
     }
+    .h-full{
+        height: 100%;
+    }
     .text-right {
         text-align: right;
     }
     .text-center {
         text-align: center;
+    }
+    .scale-90{
+        transform-origin: top;
+        scale: 0.9;
     }
 
     display: flex;
@@ -436,9 +453,13 @@
 
         transition: all 500ms ease;
     }
+    .cart-drawer-card .cart-drawer-card__button,
     .cart-drawer-card button,
     .cart-drawer-card input[type="submit"] {
-        padding: 1.75rem 1rem;
+        text-align: center;
+        font-weight: 500;
+        font-size: small;
+        padding: 1.75rem .75rem;
         border-radius: 99rem;
         border: none;
         outline: none;

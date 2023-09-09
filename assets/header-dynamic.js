@@ -75,7 +75,9 @@ async function updateCartDrawer(openCart) {
     document.querySelector(".cart-drawer-card").innerHTML = newBox;
 
     newBox = html.querySelector(".header-dynamic__cart-button").innerHTML;
-    document.querySelector(".header-dynamic__cart-button").innerHTML = newBox;
+    document.querySelectorAll(".header-dynamic__cart-button").forEach(button=>{
+        button.innerHTML = newBox;
+    })
 
     document
         .querySelectorAll(".header-dynamic__remove-button")

@@ -81,22 +81,29 @@
         <path d="M125.575 18.9215V24H110.166V2.38821e-05H115.556V18.9215H125.575Z" fill="currentColor"/>
       </svg>
     </a>
-    <div onclick="ToggleNavMenu()" class='header-dynamic__hamburger'>
-      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="12" viewBox="0 0 32 12" fill="none">
-        <path d="M1 1.26709H31" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-        <path d="M9.65978 10.5454L31 10.5454" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-      </svg>
-      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="14" viewBox="0 0 20 14" fill="none">
-        <g clip-path="url(#clip0_16_12)">
-          <path d="M16.25 0.63636L3.87563 13.2357" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-          <path d="M16.25 13.3636L3.87563 0.764282" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-        </g>
-        <defs>
-          <clipPath id="clip0_16_12">
-            <rect width="20" height="14" fill="white" transform="matrix(-1 0 0 1 20 0)"/>
-          </clipPath>
-        </defs>
-      </svg>
+    <div class='header-dynamic__button'>
+      <div class="header-dynamic__cart-button" style="cursor:pointer" onclick="ToggleCartMenu()">
+        {% if template != 'cart' %}
+          CART ({{ cart.item_count }})
+        {% endif %}
+      </div>
+      <div onclick="ToggleNavMenu()" class='header-dynamic__hamburger'>
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="12" viewBox="0 0 32 12" fill="none">
+          <path d="M1 1.26709H31" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M9.65978 10.5454L31 10.5454" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="14" viewBox="0 0 20 14" fill="none">
+          <g clip-path="url(#clip0_16_12)">
+            <path d="M16.25 0.63636L3.87563 13.2357" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M16.25 13.3636L3.87563 0.764282" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </g>
+          <defs>
+            <clipPath id="clip0_16_12">
+              <rect width="20" height="14" fill="white" transform="matrix(-1 0 0 1 20 0)"/>
+            </clipPath>
+          </defs>
+        </svg>
+      </div>
     </div>
   </div>
   <div class="header-main">
@@ -146,7 +153,13 @@
       </div>
       <div class="grow-1 header-dynamic_cart-items">
         {% if cart.empty? %}
-          <h2>Your Cart is Empty.</h2>
+          <div class="flex flex-col h-full justify-center items-center p-4">
+            <p>Your cart is looking cold and empty</p>
+            <div class="flex gap-4 w-full mt-4 scale-90">
+              <a href='{{section.settings.leftemptylink}}' class="cart-drawer-card__button w-full clickable">{{ section.settings.leftempty }}</a>
+              <a href='{{section.settings.rightemptylink}}' class="cart-drawer-card__button w-full clickable">{{ section.settings.rightempty }}</a>
+            </div>
+          </div>
         {% else %}
           {% for item in cart.items %}
             <div>
@@ -178,24 +191,26 @@
           {% endfor %}
         {% endif %}
       </div>
-
-      <div class="header-dynamic_cart-footer">
-        <p class="text-center">Your order qualifies for shipping.</p>
-        <hr>
-        <div class="flex justify-between mt-4">
-          <h4>Subtotal</h4>
-          <div>
-            <h2 class="text-right">{{ cart.checkout_charge_amount | money }}</h2>
-            <h4>Taxes Included</h4>
+      {% if cart.empty? %}
+      {% else %}
+        <div class="header-dynamic_cart-footer">
+          <p class="text-center">Your order qualifies for shipping.</p>
+          <hr>
+          <div class="flex justify-between mt-4">
+            <h4>Subtotal</h4>
+            <div>
+              <h2 class="text-right">{{ cart.checkout_charge_amount | money }}</h2>
+              <h4>Taxes Included</h4>
+            </div>
           </div>
+          <form action="{{ routes.cart_url }}" method="post">
+            <div class="flex gap-4 mt-4">
+              <button class="w-full outline clickable">View My Cart</button>
+              <input class="w-full clickable" type="submit" name="checkout" value="Checkout">
+            </div>
+          </form>
         </div>
-        <form action="{{ routes.cart_url }}" method="post">
-          <div class="flex gap-4 mt-4">
-            <button class="w-full outline clickable">View My Cart</button>
-            <input class="w-full clickable" type="submit" name="checkout" value="Checkout">
-          </div>
-        </form>
-      </div>
+    {% endif %}
     </div>
   </div>
 {% endif %}
@@ -231,10 +246,34 @@
       "label": "Menu"
     },
     {
-      "type": "text",
+      "type": "url",
       "id": "allproduct",
-      "default": "link",
+      "default": "/",
       "label": "All Products"
+    },
+    {
+      "type": "text",
+      "id": "leftempty",
+      "default": "Shop Sauna",
+      "label": "Empty Cart Left Button"
+    },
+    {
+      "type": "url",
+      "id": "leftemptylink",
+      "default": "/",
+      "label": "Left Link"
+    },
+    {
+      "type": "text",
+      "id": "rightempty",
+      "default": "Shop Ice Bath",
+      "label": "Empty Cart Right Button"
+    },
+    {
+      "type": "url",
+      "id": "rightemptylink",
+      "default": "/",
+      "label": "Right Link"
     },
     {
       "type": "color",
