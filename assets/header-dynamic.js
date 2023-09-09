@@ -75,9 +75,11 @@ async function updateCartDrawer(openCart) {
     document.querySelector(".cart-drawer-card").innerHTML = newBox;
 
     newBox = html.querySelector(".header-dynamic__cart-button").innerHTML;
-    document.querySelectorAll(".header-dynamic__cart-button").forEach(button=>{
-        button.innerHTML = newBox;
-    })
+    document
+        .querySelectorAll(".header-dynamic__cart-button")
+        .forEach((button) => {
+            button.innerHTML = newBox;
+        });
 
     document
         .querySelectorAll(".header-dynamic__remove-button")
@@ -127,7 +129,9 @@ async function updateCartDrawer(openCart) {
 
 let isFetching = false;
 async function updateQuantity(key, quantity, item) {
-    document.querySelector(".header-dynamic_cart-footer").classList.add("is-loading");
+    document
+        .querySelector(".header-dynamic_cart-footer")
+        .classList.add("is-loading");
     item.classList.add("is-loading");
     console.log(item);
     if (isFetching) {
@@ -146,4 +150,34 @@ async function updateQuantity(key, quantity, item) {
     isFetching = false;
     // console.log(res);
     updateCartDrawer(true);
+}
+
+//TODO change wheel to scroll and RAF
+addEventListener("wheel", (event) => {
+    handleNavbar(document.querySelector("#header-dynamic"), event);
+    handleNavbar(
+        document.querySelector("#header-dynamic-mobile .header-top"),
+        event
+    );
+});
+
+function handleNavbar(headerDynamic, event) {
+    if (document.scrollingElement.scrollTop < 50) {
+        headerDynamic.classList.remove("header-dynamic-scroll-up");
+        headerDynamic.classList.remove("header-dynamic-out-of-screen");
+    } else if (event.deltaY < -1) {
+        if (!headerDynamic.classList.contains("header-dynamic-scroll-up")) {
+            headerDynamic.classList.add("header-dynamic-out-of-screen");
+
+            headerDynamic.classList.add("header-dynamic-scroll-up");
+            setTimeout(() => {
+                headerDynamic.classList.remove("header-dynamic-out-of-screen");
+            }, 0);
+        }
+    } else if (event.deltaY > 1) {
+        headerDynamic.classList.add("header-dynamic-out-of-screen");
+        setTimeout(() => {
+            headerDynamic.classList.remove("header-dynamic-scroll-up");
+        }, 300);
+    }
 }

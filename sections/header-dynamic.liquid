@@ -14,7 +14,8 @@
 <script src="{{ 'header-dynamic.js' | asset_url }}" defer></script>
 
 <header class="header-text-color color-{{ template | handle }}" id="header-dynamic">
-  <a href="{{ routes.root_url }}" class='header-dynamic__logo'>
+  <div class="header-dynamic__bg-dimmer"></div>
+  <a href="{{ routes.root_url }}" class="header-dynamic__logo">
     <svg xmlns="http://www.w3.org/2000/svg" width="151" height="24" viewBox="0 0 151 24" fill="currentColor">
       <path d="M13.8418 13.5358L21.6581 0H27.6857L13.8418 23.9767L0 0H6.02762L13.8418 13.5358Z" fill="currentColor"/>
       <path d="M42.5416 2.38821e-05H37.1493V24H42.5416V2.38821e-05Z" fill="currentColor"/>
@@ -45,13 +46,15 @@
         <div class="expanded-menu-content">
           <div class="text-content">
             <div>
-              <h1>{{ link.title }}</h1>
-              <hr>
-            </div>
-            <div class="submenu-links">
-              {% for sublink in link.links -%}
-                {{ sublink.title | link_to: sublink.url }}
-              {% endfor %}
+              <div>
+                <h1>{{ link.title }}</h1>
+                <hr>
+              </div>
+              <div class="submenu-links">
+                {% for sublink in link.links -%}
+                  {{ sublink.title | link_to: sublink.url }}
+                {% endfor %}
+              </div>
             </div>
             <a class="bottom-link" href="{{allproduct}}">
               Shop All Products
@@ -71,8 +74,15 @@
 </header>
 <header id="header-dynamic-mobile">
   <div class="header-top">
-    <a href="{{ routes.root_url }}" class='header-dynamic__logo'>
-      <svg class='header-dynamic__logo' xmlns="http://www.w3.org/2000/svg" width="151" height="24" viewBox="0 0 151 24" fill="currentColor">
+    <a href="{{ routes.root_url }}" class="header-dynamic__logo">
+      <svg
+        class="header-dynamic__logo"
+        xmlns="http://www.w3.org/2000/svg"
+        width="151"
+        height="24"
+        viewBox="0 0 151 24"
+        fill="currentColor"
+      >
         <path d="M13.8418 13.5358L21.6581 0H27.6857L13.8418 23.9767L0 0H6.02762L13.8418 13.5358Z" fill="currentColor"/>
         <path d="M42.5416 2.38821e-05H37.1493V24H42.5416V2.38821e-05Z" fill="currentColor"/>
         <path d="M139.836 3.91273H145.227V9.30407H150.619V14.6954H145.227V20.0868H139.836V14.6954H134.444V9.30407H139.836V3.91273Z" fill="currentColor"/>
@@ -81,13 +91,13 @@
         <path d="M125.575 18.9215V24H110.166V2.38821e-05H115.556V18.9215H125.575Z" fill="currentColor"/>
       </svg>
     </a>
-    <div class='header-dynamic__button'>
+    <div class="header-dynamic__button">
       <div class="header-dynamic__cart-button" style="cursor:pointer" onclick="ToggleCartMenu()">
         {% if template != 'cart' %}
           CART ({{ cart.item_count }})
         {% endif %}
       </div>
-      <div onclick="ToggleNavMenu()" class='header-dynamic__hamburger'>
+      <div onclick="ToggleNavMenu()" class="header-dynamic__hamburger">
         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="12" viewBox="0 0 32 12" fill="none">
           <path d="M1 1.26709H31" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
           <path d="M9.65978 10.5454L31 10.5454" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
@@ -113,8 +123,12 @@
           <hr>
           <h1>
             {{ link.title }}
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-              <path d="M15 7.5L10 12.5L5 7.5" stroke="#222222" stroke-linecap="round" stroke-linejoin="round"/>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M12 5V19" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M5 12H19" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M5 12H19" stroke="#222222" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </h1>
         </div>
@@ -145,25 +159,29 @@
       <div>
         <div class="flex justify-between items-centre">
           <h1>
-            Cart<sup> {{ cart.item_count }}</sup>
+            Cart<span class="sup"> {{ cart.item_count }}</span>
           </h1>
           <h4 style="cursor:pointer" class="close-button" onclick="ToggleCartMenu()">CLOSE</h4>
         </div>
-        <hr class="mt-4">
+        <hr class="cart-drawer-dynamic__divider">
       </div>
       <div class="grow-1 header-dynamic_cart-items">
         {% if cart.empty? %}
-          <div class="flex flex-col h-full justify-center items-center p-4">
+          <div class="flex flex-col h-full justify-center items-center">
             <p>Your cart is looking cold and empty</p>
-            <div class="flex gap-4 w-full mt-4 scale-90">
-              <a href='{{section.settings.leftemptylink}}' class="cart-drawer-card__button w-full clickable">{{ section.settings.leftempty }}</a>
-              <a href='{{section.settings.rightemptylink}}' class="cart-drawer-card__button w-full clickable">{{ section.settings.rightempty }}</a>
+            <div class="flex gap-2 justify-center w-full mt-4 scale-90">
+              <a href="{{section.settings.leftemptylink}}" class="cart-drawer-card__button clickable">
+                {{- section.settings.leftempty -}}
+              </a>
+              <a href="{{section.settings.rightemptylink}}" class="cart-drawer-card__button clickable">
+                {{- section.settings.rightempty -}}
+              </a>
             </div>
           </div>
         {% else %}
           {% for item in cart.items %}
             <div>
-              <div class="flex gap-4 mt-4 header-dynamic_cart-item">
+              <div class="flex gap-4 header-dynamic_cart-item">
                 <div class="img">
                   {{ item.image | img_url: '200x' | img_tag }}
                 </div>
@@ -182,35 +200,37 @@
                       <div class="counter_value">{{ item.quantity }}</div>
                       <div style="cursor:pointer" class="counter_plus">+</div>
                     </div>
-                    <div data-key="{{ item.key }}" class="header-dynamic__remove-button remove">Remove</div>
+                    <div data-key="{{ item.key }}" class="header-dynamic__remove-button">Remove</div>
                   </div>
                 </div>
               </div>
-              <hr class="mt-4">
+              <hr class="">
             </div>
           {% endfor %}
         {% endif %}
       </div>
       {% if cart.empty? %}
       {% else %}
-        <div class="header-dynamic_cart-footer">
+        <div class="header-dynamic_cart-footer flex flex-col gap-8">
           <p class="text-center">Your order qualifies for shipping.</p>
-          <hr>
-          <div class="flex justify-between mt-4">
-            <h4>Subtotal</h4>
-            <div>
-              <h2 class="text-right">{{ cart.checkout_charge_amount | money }}</h2>
-              <h4>Taxes Included</h4>
+          <div>
+            <hr>
+            <div class="flex justify-between mt-4">
+              <h4>Subtotal</h4>
+              <div>
+                <h2 class="text-right">{{ cart.checkout_charge_amount | money }}</h2>
+                <h4>Taxes Included</h4>
+              </div>
             </div>
           </div>
           <form action="{{ routes.cart_url }}" method="post">
-            <div class="flex gap-4 mt-4">
+            <div class="flex gap-4">
               <button class="w-full outline clickable">View My Cart</button>
               <input class="w-full clickable" type="submit" name="checkout" value="Checkout">
             </div>
           </form>
         </div>
-    {% endif %}
+      {% endif %}
     </div>
   </div>
 {% endif %}
