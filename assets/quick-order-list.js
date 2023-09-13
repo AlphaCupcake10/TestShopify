@@ -138,11 +138,6 @@ class QuickOrderList extends HTMLElement {
         selector: '.js-contents'
       },
       {
-        id: 'cart-icon-bubble',
-        section: 'cart-icon-bubble',
-        selector: '.shopify-section'
-      },
-      {
         id: 'quick-order-list-live-region-text',
         section: 'cart-live-region-text',
         selector: '.shopify-section'
