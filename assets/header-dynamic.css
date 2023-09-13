@@ -4,6 +4,19 @@
 .header-dynamic__logo {
     color: inherit;
 }
+#header-dynamic:has(.header-links:hover) .header-dynamic__bg-dimmer,
+#header-dynamic:has(.expanded-menu-wrapper:hover) .header-dynamic__bg-dimmer {
+    opacity: 0.4;
+}
+.header-dynamic__cart-button
+{
+    transition: opacity 150ms ease-in-out;
+}
+#header-dynamic-mobile.active-menu .header-dynamic__cart-button
+{
+    opacity: 0;
+    pointer-events: none;
+}
 #header-dynamic {
     z-index: 10;
     padding: 4rem;
@@ -22,10 +35,6 @@
         z-index: -10;
         pointer-events: none;
         transition: opacity 300ms ease-in-out;
-    }
-    &:has(.header-links:hover) .header-dynamic__bg-dimmer,
-    &:has(.expanded-menu-wrapper:hover) .header-dynamic__bg-dimmer {
-        opacity: 0.4;
     }
 
     /* CHANGE TO STICKY IF REQUIRED */
@@ -263,11 +272,11 @@ body:has(#header-dynamic-mobile.active-menu) {
     color: white;
     overflow: hidden;
 
-    &::-webkit-scrollbar {
+    /* &::-webkit-scrollbar {
         display: none;
     }
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none;
+    -ms-overflow-style: none; */
     &.active-menu {
         overflow-y: scroll;
         color: inherit;

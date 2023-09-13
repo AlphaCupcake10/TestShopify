@@ -152,20 +152,23 @@ async function updateQuantity(key, quantity, item) {
     updateCartDrawer(true);
 }
 
+let lastScrollPos = [0,0];
 //TODO change wheel to scroll and RAF
-addEventListener("wheel", (event) => {
-    handleNavbar(document.querySelector("#header-dynamic"), event);
+addEventListener("scroll", (event) => {
+    handleNavbar(document.querySelector("#header-dynamic"), event,0);
     handleNavbar(
         document.querySelector("#header-dynamic-mobile .header-top"),
-        event
+        event,
+        1
     );
 });
-
-function handleNavbar(headerDynamic, event) {
+function handleNavbar(headerDynamic, event , index) {
+    let delta = document.scrollingElement.scrollTop - lastScrollPos[index];
+    lastScrollPos[index] = document.scrollingElement.scrollTop;
     if (document.scrollingElement.scrollTop < 50) {
         headerDynamic.classList.remove("header-dynamic-scroll-up");
         headerDynamic.classList.remove("header-dynamic-out-of-screen");
-    } else if (event.deltaY < -1) {
+    } else if (delta < -1) {
         if (!headerDynamic.classList.contains("header-dynamic-scroll-up")) {
             headerDynamic.classList.add("header-dynamic-out-of-screen");
 
@@ -174,7 +177,7 @@ function handleNavbar(headerDynamic, event) {
                 headerDynamic.classList.remove("header-dynamic-out-of-screen");
             }, 0);
         }
-    } else if (event.deltaY > 1) {
+    } else if (delta > 1) {
         headerDynamic.classList.add("header-dynamic-out-of-screen");
         setTimeout(() => {
             headerDynamic.classList.remove("header-dynamic-scroll-up");
